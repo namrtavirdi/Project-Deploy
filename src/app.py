@@ -243,7 +243,7 @@ frame.place(relx=0.5, rely=0.5, anchor="center")
 # =========================
 # TITLE
 # =========================
-title = ctk.CTkLabel(frame, text="🌿 Plant Disease Detector",
+title = ctk.CTkLabel(frame, text="🌿 Plant Disease Detector🌿",
                      font=("Arial",28,"bold"), text_color="white")
 title.pack(pady=15)
 
