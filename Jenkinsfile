@@ -2,9 +2,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+
+        stage('Checkout Code') {
             steps {
                 checkout scm
+            }
+        }
+
+        stage('Setup Python') {
+            steps {
+                echo 'Setting up environment...'
+                bat 'python --version'
             }
         }
 
@@ -14,8 +22,9 @@ pipeline {
             }
         }
 
-        stage('Run Application') {
+        stage('Run App') {
             steps {
+                echo 'Starting application...'
                 bat 'python src\\app.py'
             }
         }
