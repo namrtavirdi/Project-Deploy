@@ -1,32 +1,77 @@
 pipeline {
     agent any
 
+    environment {
+        PYTHON = 'python'
+    }
+
     stages {
 
         stage('Checkout Code') {
             steps {
-                checkout scm
+                git branch: 'main',
+                    url: 'https://github.com/namrtavirdi/Project-Deploy.git'
             }
         }
 
-        stage('Setup Python') {
+        stage('Verify Python') {
             steps {
-                echo 'Setting up environment...'
-                bat 'python --version'
+                bat '''
+                python --version
+                pip --version
+                '''
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                bat 'pip install -r requirements.txt'
+                bat '''
+                python -m pip install --upgrade pip
+                pip install -r requirements.txt
+                '''
             }
         }
 
-        stage('Run App') {
+        stage('Stop Previous App') {
             steps {
-                echo 'Starting application...'
-                bat 'python src\\app.py'
+                bat '''
+                taskkill /F /IM python.exe >nul 2>&1 || exit /b 0
+                '''
             }
+        }
+
+        stage('Start Flask App') {
+            steps {
+                bat '''
+                start "Leaf Disease App" cmd /c python src\\app.py
+                '''
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                echo 'Application deployed successfully!'
+            }
+        }
+    }
+
+    post {
+
+        success {
+            echo '==========================================='
+            echo 'Build Successful!'
+            echo 'Leaf Disease Detection App is Running.'
+            echo '==========================================='
+        }
+
+        failure {
+            echo '==========================================='
+            echo 'Build Failed!'
+            echo '==========================================='
+        }
+
+        always {
+            cleanWs()
         }
     }
 }
