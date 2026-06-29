@@ -1,4 +1,0 @@
-JENKINS
-URL-http://localhost:8080/
-Administrator-7cb649244ccc4aa193820302398ad755
-ngrok authtoken-3FZwusvISEpLxhSOaLTJIZwUszY_4pHmu96yT8p4kvYoKz43s
