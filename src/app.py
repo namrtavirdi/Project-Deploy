@@ -213,7 +213,7 @@ ctk.set_default_color_theme("green")
 
 app = ctk.CTk()
 app.geometry("900x700")
-app.title("🌿 AI Plant Detector")
+app.title("🌿AI Plant Detector🌿")
 
 # =========================
 # BACKGROUND
